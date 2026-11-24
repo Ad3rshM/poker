@@ -124,11 +124,17 @@ class Game:
 
             elif option == 'call':
                 self.call_option(player)
+                to_check = True
+                for i in range(len(self.players) - 1):
+                    if self.players[i].contribution != self.players[i-1].contribution:
+                        to_check = False
+                if to_check:
+                    self.reveal_cards()
 
             elif option == 'check':
                 self.checks_in_a_row += 1
             
-            if option != 'check':
+            if option != 'check' and option != 'call':
                 self.checks_in_a_row = 0
 
             if type(player) == AI:
